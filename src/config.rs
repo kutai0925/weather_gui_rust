@@ -16,4 +16,4 @@
 
 
 
-pub const OPENWEATHER_API_KEY: &str = "d3c5a560206a1c009e81dc385dfe3c06";
+pub const OPENWEATHER_API_KEY: &str = "******";
