@@ -49,7 +49,7 @@ impl TemperatureUnit {
 
     fn format_temp(self, k: f64) -> String {
         match self {
-            TemperatureUnit::Kelvin => format!("{:.0} K", k), // ohne °
+            TemperatureUnit::Kelvin => format!("{:.0} K", k), 
             TemperatureUnit::Celsius => format!("{:.0} °C", k - 273.15),
             TemperatureUnit::Fahrenheit => format!("{:.0} °F", (k - 273.15) * 9.0 / 5.0 + 32.0),
         }
@@ -62,7 +62,7 @@ impl eframe::App for WeatherApp {
             ui.heading("Weather App");
             ui.add_space(8.0);
 
-            // City input (nur Stadt!)
+          
             ui.horizontal(|ui| {
                 ui.label("City:");
                 ui.text_edit_singleline(&mut self.city);
@@ -70,7 +70,7 @@ impl eframe::App for WeatherApp {
 
             ui.add_space(8.0);
 
-            // Buttons direkt darunter
+           
             ui.horizontal(|ui| {
                 if ui.button("Fetch").clicked() {
                     match fetch_weather(&self.city) {
@@ -99,23 +99,18 @@ impl eframe::App for WeatherApp {
             ui.separator();
             ui.add_space(14.0);
 
-            // OUTPUT Bereich (zentriert)
             if let Some(data) = &self.result {
                 ui.vertical_centered(|ui| {
-                    // Temperatur groß in der Mitte
+                    
                     let temp_text = self.unit.format_temp(data.temp_k);
                     ui.label(egui::RichText::new(temp_text).size(42.0));
 
-                    // Stadtname direkt darunter (aus Eingabefeld)
-                    // (du wolltest den Stadt-Namen aus dem Textfeld – wir nutzen self.city)
                     ui.add_space(6.0);
                     ui.label(egui::RichText::new(data.city_from_api.as_str()).size(18.0));
 
                     ui.add_space(12.0);
 
-                    // "space-evenly": 3 Werte nebeneinander
-                    // Feuchtigkeit, Wind, Himmel-Klarheit (Clouds %)
-                    // -> Cloudiness % = Wolkenanteil. (Je kleiner, desto "klarer")
+                    
                     ui.allocate_ui_with_layout(
                         egui::Vec2::new(ui.available_width(), 0.0),
                         egui::Layout::left_to_right(egui::Align::Center)
